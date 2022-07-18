@@ -1,9 +1,3 @@
-// Enter the lottery (paying some amount)
-// Pick a random winner (verifiably random)
-// Winner selected every x period -> automated
-
-// Chainlink Oracle -> Randomness, Automated execution (Chainlink Keepers)
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
@@ -20,6 +14,11 @@ error Raffle__UpkeepNotNeeded(
   uint256 raffleState
 );
 
+/** @title A sample Raffle Contract
+ * @author Ben Bright - Patrick Collings FCC tutorial project
+ * @notice This contract is for creating an untamperable decentralized lottery
+ * @dev This implements Chainlink VRF V2 and Chainlink Keepers
+ */
 contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
   /* Type declarations */
   enum RaffleState {
@@ -48,8 +47,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
   event RequestedRaffleWinner(uint256 indexed requestId);
   event WinnerPicked(address indexed winner);
 
+  /* Functions */
   constructor(
-    address vrfCoordinatorV2,
+    address vrfCoordinatorV2, // contract address
     uint256 entranceFee,
     bytes32 gasLane,
     uint64 subscriptionId,
@@ -168,4 +168,32 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
   function getRecentWinner() public view returns (address) {
     return s_recentWinner;
   }
+
+  function getRaffleState() public view returns (RaffleState) {
+    return s_raffleState;
+  }
+
+  function getNumWords() public pure returns (uint256) {
+    // Note - use pure as returning a constant variable
+    return NUM_WORDS;
+  }
+
+  function getNumberofPlayers() public view returns (uint256) {
+    return s_players.length;
+  }
+
+  function getLatestTimeStamp() public view returns (uint256) {
+    return s_lastTimeStamp;
+  }
+
+  function getRequestConfirmations() public pure returns (uint256) {
+    // Note - use pure as returning a constant variable
+    return REQUEST_CONFIRMATIONS;
+  }
 }
+
+// Enter the lottery (paying some amount)
+// Pick a random winner (verifiably random)
+// Winner selected every x period -> automated
+
+// Chainlink Oracle -> Randomness, Automated execution (Chainlink Keepers)

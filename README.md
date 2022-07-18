@@ -25,3 +25,17 @@ FreeCodeCamp blockchain course - lottery project
 14:28 Chainlink keepers video
 
 14:34 Chainlink keepers documentation and implementation
+
+14:56 Deploying Raffle.sol
+
+15:04 Mock Chainlink VRF Coordinator
+
+- https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol
+
+15:10 Deploying Raffle.sol continued
+
+Note - when formatting add name of language to the 3 backticks
+
+"```javascript"
+
+15:20 Unit tests
