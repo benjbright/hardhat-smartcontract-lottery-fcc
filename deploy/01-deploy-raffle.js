@@ -68,3 +68,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 }
 
 module.exports.tags = ["all", "raffle"]
+
+// Deployed contract on Rinkeby testnet
+// 0x3b8d241De8b8383A9453d8e4dae39F1971ca7661
