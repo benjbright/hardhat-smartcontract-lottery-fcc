@@ -62,3 +62,9 @@ Note - when formatting add name of language to the 3 backticks
 16:18 Testing on a Testnet
 
 16:22 Deploying the contract to a testnet
+
+- Set up chainlink subscription - add contract address as a consumer
+- `vrf.chain.link`
+- `keepers.chain.link`
+
+16:32 Completed Hardhat basics!

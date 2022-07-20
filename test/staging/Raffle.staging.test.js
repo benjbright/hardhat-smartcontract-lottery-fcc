@@ -7,7 +7,7 @@ const {
 
 developmentChains.includes(network.name)
   ? describe.skip
-  : describe("Raffle Unit Tests", function () {
+  : describe("Raffle Staging Tests", function () {
       let raffle, raffleEntranceFee, deployer
 
       beforeEach(async function () {
@@ -19,9 +19,11 @@ developmentChains.includes(network.name)
       describe("fulfillRandomWords", function () {
         it("works with live Chainlink Keepers and Chainlink VRF, we get a random winner", async function () {
           // enter the raffle
+          console.log("Setting up test...")
           const startingTimeStamp = await raffle.getLatestTimeStamp()
           const accounts = await ethers.getSigners()
 
+          console.log("Setting up listener...")
           await new Promise(async (resolve, reject) => {
             // set up listener before we enter the raffle
             // just in case the blockchain moves really fast!
@@ -45,11 +47,14 @@ developmentChains.includes(network.name)
                 resolve()
               } catch (error) {
                 console.log(error)
-                reject(e)
+                reject(error)
               }
             })
             // Then entering the raffle
-            await raffle.enterRaffle({ value: raffleEntranceFee })
+            console.log("Entering Raffle...")
+            const tx = await raffle.enterRaffle({ value: raffleEntranceFee })
+            await tx.wait(1)
+            console.log("Ok, time to wait...")
             const winnerStartingBalance = await accounts[0].getBalance()
 
             // and this code won't complete until our listener has finished listening!
